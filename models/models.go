@@ -9,9 +9,12 @@ import (
 )
 
 type Catalog struct {
-	Id    int64
-	Ident string `orm:"unique"`
-	Name  string
+	Id           int64
+	Ident        string `orm:"unique"`
+	Name         string
+	Resume       string
+	DisplayOrder int
+	ImgUrl       string
 }
 
 type Blog struct {
