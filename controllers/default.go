@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"github.com/astaxie/beego"
+	"github.com/ulricqin/beego-blog/g"
 )
 
 type MainController struct {
@@ -9,7 +10,8 @@ type MainController struct {
 }
 
 func (this *MainController) Get() {
-	this.Data["Website"] = "beego.me"
-	this.Data["Email"] = "astaxie@gmail.com"
+	this.Data["RootName"] = g.RootName
+	this.Data["RootEmail"] = g.RootEmail
+	this.Data["RootPortrait"] = g.RootPortrait
 	this.TplNames = "index.tpl"
 }
