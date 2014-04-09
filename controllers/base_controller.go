@@ -17,6 +17,7 @@ type BaseController struct {
 }
 
 func (this *BaseController) Prepare() {
+	this.Data["BlogLogo"] = g.BlogLogo
 	this.Data["BlogTitle"] = g.BlogTitle
 	this.Data["BlogResume"] = g.BlogResume
 	this.Data["RootName"] = g.RootName

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>后台管理 - beego-blog</title>
+    <title>后台管理 - {{.BlogTitle}}</title>
     <link rel="stylesheet" href="/static/css/g.css"/>
 </head>
 <body>
@@ -18,7 +18,7 @@
                 </div>
             </div>
             <div class="fl">
-                <a href="" ><img src="/static/images/guy.jpg" class="img-circle" width="90" height="90"></a>
+                <a href="" ><img src="{{.BlogLogo}}" class="img-circle" width="90" height="90"></a>
             </div>
             <div class="fl">
                 <div id="blog-title">{{.BlogTitle}}</div>
@@ -27,6 +27,13 @@
             <div style="clear:both;"></div>
             <hr>
         </header>
+        <div class="backmenu mb20 navbar mt10">
+            <a href="#">分类管理</a>
+            <span class="cut-line">,</span>
+            <a href="#">发表博文</a>
+            <span class="cut-line">,</span>
+            <a href="#">[草稿箱]</a>
+        </div>
         {{.LayoutContent}}
     </div>
 </body>

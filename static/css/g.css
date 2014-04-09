@@ -17,7 +17,7 @@ hr{height:0;-moz-box-sizing:content-box;box-sizing:content-box;margin-top:20px;m
 .img-circle{border-radius:50%}
 .cut-line {margin: 0 5px;color: #D6D6D6;}
 a{ color:#0066cc; text-decoration:none;}
-a:hover {text-decoration: none;color: #f60;}
+a:hover {text-decoration: underline;}
 
 #screen{margin:0 auto; width:960px; }
 #blog-title{margin-left:20px;padding-top:16px;font-size:18pt;font-weight:bold;}

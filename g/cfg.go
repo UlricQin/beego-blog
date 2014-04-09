@@ -7,6 +7,7 @@ var (
 	RootPortrait string
 	BlogTitle string
 	BlogResume string
+	BlogLogo string
 )
 
 func initCfg() {
@@ -16,4 +17,5 @@ func initCfg() {
 	RootPortrait = Cfg.String("root_portrait")
 	BlogTitle = Cfg.String("blog_title")
 	BlogResume = Cfg.String("blog_resume")
+	BlogLogo = Cfg.String("blog_logo")
 }
