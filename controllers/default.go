@@ -1,12 +1,11 @@
 package controllers
 
 import (
-	"github.com/astaxie/beego"
 	"github.com/ulricqin/beego-blog/g"
 )
 
 type MainController struct {
-	beego.Controller
+	BaseController
 }
 
 func (this *MainController) Get() {

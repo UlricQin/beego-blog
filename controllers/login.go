@@ -1,12 +1,11 @@
 package controllers
 
 import (
-	"github.com/astaxie/beego"
 	"github.com/ulricqin/beego-blog/g"
 )
 
 type LoginController struct {
-	beego.Controller
+	BaseController
 }
 
 func (this *LoginController) Login() {
@@ -35,7 +34,8 @@ func (this *LoginController) DoLogin() {
 		return
 	}
 
-	//TODO: write cookie
+	this.Ctx.SetCookie("bb_name", name, 2592000, "/")
+	this.Ctx.ResponseWriter.Header().Add("Set-Cookie", "bb_password="+password+"; Max-Age=2592000; Path=/; httponly")
 
 	this.Ctx.WriteString("")
 }

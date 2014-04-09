@@ -1,13 +1,12 @@
 package controllers
 
 import (
-	"github.com/astaxie/beego"
 	"github.com/ulricqin/goutils/strtool"
 	"strings"
 )
 
 type ApiController struct {
-	beego.Controller
+	BaseController
 }
 
 func (this *ApiController) Health() {

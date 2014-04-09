@@ -1,11 +1,7 @@
 package controllers
 
-import (
-	"github.com/astaxie/beego"
-)
-
 type ArticleController struct {
-	beego.Controller
+	BaseController
 }
 
 func (this *ArticleController) Read() {
