@@ -3,6 +3,7 @@ package controllers
 import (
 	"github.com/astaxie/beego"
 	"github.com/ulricqin/goutils/paginator"
+	"github.com/ulricqin/beego-blog/g"
 	"strconv"
 )
 
@@ -16,6 +17,11 @@ type BaseController struct {
 }
 
 func (this *BaseController) Prepare() {
+	this.Data["BlogTitle"] = g.BlogTitle
+	this.Data["BlogResume"] = g.BlogResume
+	this.Data["RootName"] = g.RootName
+	this.Data["RootEmail"] = g.RootEmail
+	this.Data["RootPortrait"] = g.RootPortrait
 	if app, ok := this.AppController.(Checker); ok {
 		app.CheckLogin()
 	}

@@ -1,0 +1,64 @@
+*{ font:10pt Verdana,Arial,Microsoft YaHei,sans-serif; color:#666666; word-wrap:break-word;}
+.mt0{ margin-top:0px!important;}
+.mt5{ margin-top:5px!important;}
+.mt10{ margin-top:10px!important;}
+.mt15{ margin-top:15px!important;}
+.mt20{ margin-top:20px!important;}
+.mb0{ margin-bottom:0px!important;}
+.mb5{ margin-bottom:5px!important;}
+.mb10{ margin-bottom:10px!important;}
+.mb15{ margin-bottom:15px!important;}
+.mb20{ margin-bottom:20px!important;}
+/*float*/
+.fl{ float:left!important;}
+.fr{ float:right!important;}
+.fn{ float:none!important;}
+hr{height:0;-moz-box-sizing:content-box;box-sizing:content-box;margin-top:20px;margin-bottom:20px;border:0;border-top:1px solid #eee}
+.img-circle{border-radius:50%}
+.cut-line {margin: 0 5px;color: #D6D6D6;}
+a{ color:#0066cc; text-decoration:none;}
+a:hover {text-decoration: none;color: #f60;}
+
+#screen{margin:0 auto; width:960px; }
+#blog-title{margin-left:20px;padding-top:16px;font-size:18pt;font-weight:bold;}
+#blog-resume{color:#ccc;margin-left:20px;margin-top:14px;font-style:italic;font-size:10pt;}
+
+#contact-me .social a.google{background:url('/static/images/social/google.png') center no-repeat #c83d20;border:1px solid #C83D20}
+#contact-me .social a.google:hover{border:1px solid #9c3019;;background-color:#9c3019}
+#contact-me .social a.weibo {background: url('/static/images/social/weibo.png') center no-repeat #e32529;border: 1px solid #e32529;}
+#contact-me .social a.weibo:hover{border:1px solid #bd181c;background-color:#bd181c}
+#contact-me .social a.facebook {background: url('/static/images/social/facebook.png') center no-repeat #3b5998;border: 1px solid #3B5998;}
+#contact-me .social a.facebook:hover{border:1px solid #2d4373;background-color:#2d4373;}
+#contact-me .social a.twitter {background: url('/static/images/social/twitter.png') center no-repeat #55cff8;border: 1px solid #55CFF8;}
+#contact-me .social a.twitter:hover{border:1px solid #24c1f6;background-color:#24c1f6}
+#contact-me .social a.github {background: url('/static/images/social/github.png') center no-repeat #afb6ca;border: 1px solid #afb6ca;}
+#contact-me .social a.github:hover{border:1px solid #909ab6;background-color:#909ab6}
+#contact-me .social a.linkedin{background:url('/static/images/social/linkedin.png') center no-repeat #005a87;border:1px solid #005A87;}
+#contact-me .social a.linkedin:hover{border:1px solid #003854;background-color:#003854}
+
+#contact-me .social a {
+-webkit-border-radius: 50%;
+-moz-border-radius: 50%;
+-ms-border-radius: 50%;
+-o-border-radius: 50%;
+border-radius: 50%;
+display: -moz-inline-stack;
+display: inline-block;
+vertical-align: middle;
+zoom: 1;
+text-indent: -9999px;
+margin-right: 5px;
+margin-bottom: 15px;
+opacity: 0.5;
+width: 28px;
+height: 28px;
+-webkit-transition: 0.3s;
+-moz-transition: 0.3s;
+-o-transition: 0.3s;
+transition: 0.3s;
+}
+
+.navbar {font-size:13px;background:#f7f7f7;padding:8px;
+-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;
+border:1px solid #eee;line-height:24px;}
+.navbar em {font-weight:bold;font-size:13px;color:#f60;}
