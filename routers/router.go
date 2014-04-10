@@ -1,12 +1,12 @@
 package routers
 
 import (
-	"github.com/ulricqin/beego-blog/controllers"
 	"github.com/astaxie/beego"
+	"github.com/ulricqin/beego-blog/controllers"
 )
 
 func init() {
-    beego.Router("/", &controllers.MainController{})
+	beego.Router("/", &controllers.MainController{})
 
 	beego.AutoRouter(&controllers.ApiController{})
 
@@ -17,4 +17,5 @@ func init() {
 	beego.Router("/logout", &controllers.LoginController{}, "get:Logout")
 
 	beego.Router("/me", &controllers.MeController{}, "get:Default")
+	beego.Router("/me/catalog/list", &controllers.CatalogController{}, "get:List")
 }
