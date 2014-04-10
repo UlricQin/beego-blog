@@ -8,6 +8,8 @@ var (
 	BlogTitle string
 	BlogResume string
 	BlogLogo string
+	QiniuAccessKey string
+	QiniuSecretKey string
 )
 
 func initCfg() {
@@ -18,4 +20,6 @@ func initCfg() {
 	BlogTitle = Cfg.String("blog_title")
 	BlogResume = Cfg.String("blog_resume")
 	BlogLogo = Cfg.String("blog_logo")
+	QiniuAccessKey = Cfg.String("qiniu_access_key")
+	QiniuSecretKey = Cfg.String("qiniu_secret_key")
 }
