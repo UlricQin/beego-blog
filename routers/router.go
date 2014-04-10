@@ -17,5 +17,5 @@ func init() {
 	beego.Router("/logout", &controllers.LoginController{}, "get:Logout")
 
 	beego.Router("/me", &controllers.MeController{}, "get:Default")
-	beego.Router("/me/catalog/list", &controllers.CatalogController{}, "get:List")
+	beego.Router("/me/catalog/add", &controllers.CatalogController{}, "get:Add")
 }

@@ -14,7 +14,6 @@
 .fr{ float:right!important;}
 .fn{ float:none!important;}
 hr{height:0;-moz-box-sizing:content-box;box-sizing:content-box;margin-top:20px;margin-bottom:20px;border:0;border-top:1px solid #eee}
-.img-circle{border-radius:50%}
 .cut-line {margin: 0 5px;color: #D6D6D6;}
 a{ color:#0066cc; text-decoration:none;}
 a:hover {text-decoration: underline;}
@@ -57,8 +56,3 @@ height: 28px;
 -o-transition: 0.3s;
 transition: 0.3s;
 }
-
-.navbar {font-size:13px;background:#f7f7f7;padding:8px;
--webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;
-border:1px solid #eee;line-height:24px;}
-.navbar em {font-weight:bold;font-size:13px;color:#f60;}
