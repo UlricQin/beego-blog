@@ -18,4 +18,5 @@ func init() {
 
 	beego.Router("/me", &controllers.MeController{}, "get:Default")
 	beego.Router("/me/catalog/add", &controllers.CatalogController{}, "get:Add")
+	beego.Router("/me/catalog/add", &controllers.CatalogController{}, "post:DoAdd")
 }

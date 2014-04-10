@@ -20,3 +20,7 @@ func BlogCacheGet(key string) interface{} {
 func CatalogCacheGet(key string) interface{} {
 	return Cache.Get(catalogPrefix + key)
 }
+
+// -----------------------------------------------------------
+
+

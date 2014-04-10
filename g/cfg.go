@@ -10,6 +10,7 @@ var (
 	BlogLogo string
 	QiniuAccessKey string
 	QiniuSecretKey string
+	UseQiniu bool
 )
 
 func initCfg() {
@@ -22,4 +23,5 @@ func initCfg() {
 	BlogLogo = Cfg.String("blog_logo")
 	QiniuAccessKey = Cfg.String("qiniu_access_key")
 	QiniuSecretKey = Cfg.String("qiniu_secret_key")
+	UseQiniu = QiniuAccessKey != "" && QiniuSecretKey != ""
 }
