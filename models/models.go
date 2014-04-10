@@ -24,6 +24,7 @@ type Blog struct {
 	Keywords      string `orm:"null"`
 	CatalogId     int64  `orm:"index"`
 	BlogContentId int64  `orm:"unique"`
+	BlogContentLastUpdate int64
 	Type          int8   /*0:original, 1:translate, 2:reprint*/
 	Status        int8   /*0:draft, 1:release*/
 	Views         int64

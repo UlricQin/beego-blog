@@ -2,7 +2,9 @@ package controllers
 
 import (
 	"github.com/ulricqin/goutils/strtool"
+	"github.com/ulricqin/beego-blog/models/catalog"
 	"strings"
+	"fmt"
 )
 
 type ApiController struct {
@@ -10,6 +12,7 @@ type ApiController struct {
 }
 
 func (this *ApiController) Health() {
+	fmt.Println(catalog.All()[0])
 	this.Ctx.WriteString("ok")
 }
 

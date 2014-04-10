@@ -21,6 +21,12 @@ func CatalogCacheGet(key string) interface{} {
 	return Cache.Get(catalogPrefix + key)
 }
 
-// -----------------------------------------------------------
+func CatalogCacheDel(key string) error {
+	return Cache.Delete(catalogPrefix + key)
+}
+
+func BlogCacheDel(key string) error {
+	return Cache.Delete(blogPrefix + key)
+}
 
 
