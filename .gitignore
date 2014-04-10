@@ -3,3 +3,4 @@
 *.iml
 .idea
 *.swap
+beego-blog
