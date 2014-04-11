@@ -1,1 +1,21 @@
-这是首页
+<link rel="stylesheet" type="text/css" href="/static/css/ee22d.css">
+<style type="text/css">
+</style>
+<div id="collections">
+    <div class="section container">
+        {{range .Catalogs}}
+        <div class="collection-card" itemscope="" itemtype="http://schema.org/CollectionPage">
+            <a href="/catalog/{{.Ident}}" itemprop="url">
+                <img class="cover" src="{{.ImgUrl}}" alt="{{.Name}}"
+                     itemprop="image">
+
+                <div class="card-info">
+                    <h3 class="collection-name">{{.Name}}</h3>
+
+                    <p class="description">{{.Resume}}</p>
+                </div>
+            </a>
+        </div>
+        {{end}}
+    </div>
+</div>

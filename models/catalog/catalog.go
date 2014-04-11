@@ -83,7 +83,7 @@ func OneByIdentInDB(ident string) *Catalog {
 
 func AllIdsInDB() []int64 {
 	var catalogs []Catalog
-	Catalogs().All(&catalogs, "Id")
+	Catalogs().OrderBy("-DisplayOrder").All(&catalogs, "Id")
 	size := len(catalogs)
 	if size == 0 {
 		return []int64{}
