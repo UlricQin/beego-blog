@@ -12,11 +12,10 @@ func init() {
 
 	beego.Router("/article/:id:int", &controllers.ArticleController{}, "get:Read")
 
-	beego.Router("/login", &controllers.LoginController{}, "get:Login")
-	beego.Router("/login", &controllers.LoginController{}, "post:DoLogin")
+	beego.Router("/login", &controllers.LoginController{}, "get:Login;post:DoLogin")
 	beego.Router("/logout", &controllers.LoginController{}, "get:Logout")
 
 	beego.Router("/me", &controllers.MeController{}, "get:Default")
-	beego.Router("/me/catalog/add", &controllers.CatalogController{}, "get:Add")
-	beego.Router("/me/catalog/add", &controllers.CatalogController{}, "post:DoAdd")
+	beego.Router("/me/catalog/add", &controllers.CatalogController{}, "get:Add;post:DoAdd")
+	beego.Router("/me/article/add", &controllers.ArticleController{}, "get:Add;post:DoAdd")
 }

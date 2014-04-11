@@ -14,7 +14,7 @@ type CatalogController struct {
 }
 
 func (this *CatalogController) Add() {
-	this.Data["IsAdd"] = true
+	this.Data["IsAddCatalog"] = true
 	this.Layout = "layout/admin.html"
 	this.TplNames = "catalog/add.html"
 }
