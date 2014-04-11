@@ -14,6 +14,7 @@
 .fr{ float:right!important;}
 .fn{ float:none!important;}
 hr{height:0;-moz-box-sizing:content-box;box-sizing:content-box;margin-top:20px;margin-bottom:20px;border:0;border-top:1px solid #eee}
+.img-circle{border-radius:50%}
 .cut-line {margin: 0 5px;color: #D6D6D6;}
 a{ color:#0066cc; text-decoration:none;}
 a:hover {text-decoration: underline;}

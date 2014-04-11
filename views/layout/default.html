@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{.PageTitle}} - {{.BlogTitle}}</title>
+    <link rel="stylesheet" href="/static/css/g.css"/>
+</head>
+<body>
+    <div id="screen">
+        <header id="header" class="mt20">
+            <div class="fr">
+                <div id="contact-me" style="margin-top: 42px!important;">
+                    <div class="social">
+                        <a target="_blank" class="weibo" href="http://weibo.com/goruby" title="Weibo">Weibo</a>
+                        <a target="_blank" class="facebook" href="https://www.facebook.com/ulric.qin" title="Facebook">Facebook</a>
+                        <a target="_blank" class="twitter" href="https://twitter.com/UlricQin" title="Twitter">Twitter</a>
+                        <a target="_blank" class="github" href="https://github.com/UlricQin" title="GitHub">GitHub</a>
+                    </div>
+                </div>
+            </div>
+            <div class="fl">
+                <a href="/" ><img src="{{.BlogLogo}}" class="img-circle" width="90" height="90"></a>
+            </div>
+            <div class="fl">
+                <div id="blog-title">{{.BlogTitle}}</div>
+                <div id="blog-resume">{{.BlogResume}}</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+        </header>
+        {{.LayoutContent}}
+    </div>
+</body>
+</html>
