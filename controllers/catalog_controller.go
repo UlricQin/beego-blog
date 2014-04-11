@@ -3,6 +3,8 @@ package controllers
 import (
 	"fmt"
 	"github.com/ulricqin/beego-blog/g"
+	"github.com/ulricqin/beego-blog/models"
+	"github.com/ulricqin/beego-blog/models/catalog"
 	"github.com/ulricqin/goutils/filetool"
 	"time"
 )
@@ -20,8 +22,8 @@ func (this *CatalogController) Add() {
 func (this *CatalogController) DoAdd() {
 	name := this.GetString("name")
 	ident := this.GetString("ident")
-	// resume := this.GetString("resume")
-	// display_order := this.GetIntWithDefault("display_order", 0)
+	resume := this.GetString("resume")
+	display_order := this.GetIntWithDefault("display_order", 0)
 
 	if name == "" {
 		this.Ctx.WriteString("name is blank")
@@ -33,13 +35,13 @@ func (this *CatalogController) DoAdd() {
 		return
 	}
 
-	// 检查ident是否已经存在
-
 	_, header, err := this.GetFile("img")
 	if err != nil {
 		this.Ctx.WriteString(err.Error())
 		return
 	}
+
+	fmt.Println(header.Filename)
 
 	ext := filetool.Ext(header.Filename)
 
@@ -57,7 +59,13 @@ func (this *CatalogController) DoAdd() {
 	}
 
 	// 保存分类信息到DB
+	o := &models.Catalog{Ident: ident, Name: name, Resume: resume, DisplayOrder: display_order, ImgUrl: "/" + imgPath}
+	_, err = catalog.Save(o)
+	if err != nil {
+		this.Ctx.WriteString(err.Error())
+		filetool.Unlink(imgPath)
+		return
+	}
 
 	this.Redirect("/", 302)
-
 }

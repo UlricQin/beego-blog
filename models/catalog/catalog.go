@@ -57,6 +57,11 @@ func IdByIdent(ident string) int64 {
 	return val.(int64)
 }
 
+func IdentExists(ident string) bool {
+	id := IdByIdent(ident)
+	return id > 0
+}
+
 func OneByIdent(ident string) *Catalog {
 	id := IdByIdent(ident)
 	return OneById(id)
@@ -120,9 +125,8 @@ func All() []*Catalog {
 	return ret
 }
 
-func save(this *Catalog) (int64, error) {
-	id := IdByIdent(this.Ident)
-	if id != 0 {
+func Save(this *Catalog) (int64, error) {
+	if IdentExists(this.Ident) {
 		return 0, fmt.Errorf("catalog english identity exists")
 	}
 	num, err := orm.NewOrm().Insert(this)
@@ -133,7 +137,7 @@ func save(this *Catalog) (int64, error) {
 	return num, err
 }
 
-func update(this *Catalog) error {
+func Update(this *Catalog) error {
 	if this.Id == 0 {
 		return fmt.Errorf("primary key id not set")
 	}
