@@ -1,18 +1,18 @@
-<form role="form">
+<form role="form" action="/me/article/add" method="post">
     <div class="row form-group">
         <div class="col-xs-6">
-            <input type="text" class="form-control" placeholder="Enter Title">
+            <input type="text" class="form-control" placeholder="Enter Title" name="title">
         </div>
         <div class="col-xs-3">
-            <input type="text" class="form-control" placeholder="Enter Identity">
+            <input type="text" class="form-control" placeholder="Enter Identity" name="ident">
         </div>
         <div class="col-xs-3">
-            <input type="text" class="form-control" placeholder="Enter Keywords">
+            <input type="text" class="form-control" placeholder="Enter Keywords" name="keywords">
         </div>
     </div>
     <div class="row form-group">
         <div class="col-xs-4">
-            <select class="form-control">
+            <select class="form-control" name="catalog_id">
                 {{range .Catalogs}}
                 <option value="{{.Id}}">{{.Name}}</option>
                 {{end}}
@@ -20,7 +20,7 @@
 
         </div>
         <div class="col-xs-2">
-            <select class="form-control">
+            <select class="form-control" name="type">
                 <option value="0">原创</option>
                 <option value="1">翻译</option>
                 <option value="2">转载</option>
@@ -28,7 +28,7 @@
 
         </div>
         <div class="col-xs-2">
-            <select class="form-control">
+            <select class="form-control" name="status">
                 <option value="1">立即发布</option>
                 <option value="0">保存草稿</option>
             </select>
@@ -58,7 +58,7 @@
 
 
     <div class="form-group">
-        <textarea class="form-control" rows="14"></textarea>
+        <textarea class="form-control" rows="14" name="content"></textarea>
     </div>
 
     <div class="md-preview markdown" style="display:none;">
