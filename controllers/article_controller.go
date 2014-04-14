@@ -11,9 +11,21 @@ type ArticleController struct {
 }
 
 func (this *ArticleController) Read() {
-	id, _ := this.GetInt(":id")
-	this.Data["id"] = id
-	// views + 1
+	ident := this.GetString(":ident")
+	b := blog.OneByIdent(ident)
+	if b == nil {
+		this.Ctx.WriteString("no such article")
+		return
+	}
+
+	b.Views = b.Views + 1
+	blog.Update(b, "")
+
+	this.Data["Blog"] = b
+	this.Data["Content"] = blog.ReadBlogContent(b)
+	this.Data["PageTitle"] = b.Title
+	this.Data["Catalog"] = catalog.OneById(b.CatalogId)
+	this.Layout = "layout/default.html"
 	this.TplNames = "article/read.html"
 }
 

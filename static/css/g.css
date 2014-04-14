@@ -21,6 +21,7 @@ a:hover {text-decoration: underline;}
 
 #screen{margin:0 auto; width:960px; }
 #blog-title{margin-left:20px;padding-top:16px;font-size:18pt;font-weight:bold;}
+#blog-title a{text-decoration: none; color: #888;}
 #blog-resume{color:#ccc;margin-left:20px;margin-top:14px;font-style:italic;font-size:10pt;}
 
 #contact-me .social a.google{background:url('/static/images/social/google.png') center no-repeat #c83d20;border:1px solid #C83D20}
@@ -57,3 +58,54 @@ height: 28px;
 -o-transition: 0.3s;
 transition: 0.3s;
 }
+
+.entry-list .item a {
+  color: #666;
+}
+.entry-list .item a:hover {
+  color: #0099cc;
+}
+.entry-list .item .entry-snippet{
+  font-size: 14px;
+  line-height: 30px;
+}
+.entry-list .entry-views {
+position: absolute;
+display: block;
+top: 5px;
+right: 0;
+padding: 8px 12px;
+background-color: #0099cc;
+color: #fff;
+border-radius: 2px;
+-moz-border-radius: 2px;
+-webkit-border-radius: 2px;
+}
+
+.collection-card a {
+	text-decoration: none;
+}
+
+.pagination{display:inline-block;padding-left:0;margin:18px 0;border-radius:4px}.pagination>li{display:inline}.pagination>li>a,.pagination>li>span{position:relative;float:left;padding:6px 12px;margin-left:-1px;line-height:1.428571429;text-decoration:none;background-color:#fff;border:1px solid #ddd}.pagination>li:first-child>a,.pagination>li:first-child>span{margin-left:0;border-bottom-left-radius:4px;border-top-left-radius:4px}.pagination>li:last-child>a,.pagination>li:last-child>span{border-top-right-radius:4px;border-bottom-right-radius:4px}.pagination>li>a:hover,.pagination>li>span:hover,.pagination>li>a:focus,.pagination>li>span:focus{background-color:#eee}.pagination>.active>a,.pagination>.active>span,.pagination>.active>a:hover,.pagination>.active>span:hover,.pagination>.active>a:focus,.pagination>.active>span:focus{z-index:2;color:#fff;cursor:default;background-color:#428bca;border-color:#428bca}.pagination>.disabled>span,.pagination>.disabled>span:hover,.pagination>.disabled>span:focus,.pagination>.disabled>a,.pagination>.disabled>a:hover,.pagination>.disabled>a:focus{color:#999;cursor:not-allowed;background-color:#fff;border-color:#ddd}.pagination-lg>li>a,.pagination-lg>li>span{padding:10px 16px;font-size:17px}.pagination-lg>li:first-child>a,.pagination-lg>li:first-child>span{border-bottom-left-radius:6px;border-top-left-radius:6px}.pagination-lg>li:last-child>a,.pagination-lg>li:last-child>span{border-top-right-radius:6px;border-bottom-right-radius:6px}.pagination-sm>li>a,.pagination-sm>li>span{padding:5px 10px;font-size:12px}.pagination-sm>li:first-child>a,.pagination-sm>li:first-child>span{border-bottom-left-radius:3px;border-top-left-radius:3px}.pagination-sm>li:last-child>a,.pagination-sm>li:last-child>span{border-top-right-radius:3px;border-bottom-right-radius:3px}
+
+.entry-meta span {
+	color: #ccc;
+}
+
+footer {
+border-top: 1px solid #D8D7CF;
+clear: both;
+color: #9A9994;
+font-size: 12px;
+line-height: 15.4px;
+margin-top: 15px;
+overflow: hidden;
+padding: 20px 0 40px;
+}
+footer .site-source {
+background: url("/static/images/code.png") no-repeat scroll 0 2px transparent;
+float: left;
+padding-left: 46px;
+}
+footer .sfc-member {float: right;text-align: right;}
+footer a {color: #403F3C;}

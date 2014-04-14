@@ -4,9 +4,14 @@ import (
 	"fmt"
 	"github.com/ulricqin/beego-blog/g"
 	"github.com/ulricqin/beego-blog/models"
+	"github.com/ulricqin/beego-blog/models/blog"
 	"github.com/ulricqin/beego-blog/models/catalog"
 	"github.com/ulricqin/goutils/filetool"
 	"time"
+)
+
+const (
+	CATALOG_IMG_DIR = "static/uploads/catalogs"
 )
 
 type CatalogController struct {
@@ -19,58 +24,117 @@ func (this *CatalogController) Add() {
 	this.TplNames = "catalog/add.html"
 }
 
-func (this *CatalogController) DoAdd() {
-	name := this.GetString("name")
-	ident := this.GetString("ident")
-	resume := this.GetString("resume")
-	display_order := this.GetIntWithDefault("display_order", 0)
-
-	if name == "" {
-		this.Ctx.WriteString("name is blank")
+func (this *CatalogController) Edit() {
+	id, err := this.GetInt("id")
+	if err != nil {
+		this.Ctx.WriteString("param id should be digit")
 		return
 	}
 
-	if ident == "" {
-		this.Ctx.WriteString("ident is blank")
+	c := catalog.OneById(id)
+	if c == nil {
+		this.Ctx.WriteString(fmt.Sprintf("no such catalog_id:%d", id))
 		return
+	}
+
+	this.Data["Catalog"] = c
+	this.Layout = "layout/admin.html"
+	this.TplNames = "catalog/edit.html"
+}
+
+func (this *CatalogController) extractCatalog(imgMust bool) (*models.Catalog, error) {
+	o := &models.Catalog{}
+	o.Name = this.GetString("name")
+	o.Ident = this.GetString("ident")
+	o.Resume = this.GetString("resume")
+	o.DisplayOrder = this.GetIntWithDefault("display_order", 0)
+
+	if o.Name == "" {
+		return nil, fmt.Errorf("name is blank")
+	}
+
+	if o.Ident == "" {
+		return nil, fmt.Errorf("ident is blank")
 	}
 
 	_, header, err := this.GetFile("img")
-	if err != nil {
-		this.Ctx.WriteString(err.Error())
-		return
+	if err != nil && imgMust {
+		return nil, err
 	}
 
-	fmt.Println(header.Filename)
+	if err == nil {
+		ext := filetool.Ext(header.Filename)
+		imgPath := fmt.Sprintf("%s/%s_%d%s", CATALOG_IMG_DIR, o.Ident, time.Now().Unix(), ext)
 
-	ext := filetool.Ext(header.Filename)
+		err = this.SaveToFile("img", imgPath)
+		if err != nil && imgMust {
+			return nil, err
+		}
 
-	catalogDir := "static/uploads/catalogs"
-	filetool.InsureDir(catalogDir)
-	imgPath := fmt.Sprintf("%s/%s_%d%s", catalogDir, ident, time.Now().Unix(), ext)
-
-	if err = this.SaveToFile("img", imgPath); err != nil {
-		this.Ctx.WriteString(err.Error())
-		return
-	}
-
-	imgUrl := "/" + imgPath
-	if g.UseQiniu {
-		// 上传到七牛，并且返回一个url
-		if addr, er := g.UploadFile(imgPath, imgPath); er != nil {
-			this.Ctx.WriteString("upload to qiniu fail. error: " + err.Error())
-			return
-		} else {
-			imgUrl = addr
+		if err == nil {
+			o.ImgUrl = "/" + imgPath
+			if g.UseQiniu {
+				if addr, er := g.UploadFile(imgPath, imgPath); er != nil {
+					if imgMust {
+						return nil, er
+					}
+				} else {
+					o.ImgUrl = addr
+				}
+			}
 		}
 	}
 
-	// 保存分类信息到DB
-	o := &models.Catalog{Ident: ident, Name: name, Resume: resume, DisplayOrder: display_order, ImgUrl: imgUrl}
+	return o, nil
+}
+
+func (this *CatalogController) DoEdit() {
+	cid, err := this.GetInt("catalog_id")
+	if err != nil {
+		this.Ctx.WriteString("catalog_id is illegal")
+		return
+	}
+
+	old := catalog.OneById(cid)
+	if old == nil {
+		this.Ctx.WriteString(fmt.Sprintf("no such catalog_id: %d", cid))
+		return
+	}
+
+	var o *models.Catalog
+	o, err = this.extractCatalog(false)
+	if err != nil {
+		this.Ctx.WriteString(err.Error())
+		return
+	}
+
+	old.Ident = o.Ident
+	old.Name = o.Name
+	old.Resume = o.Resume
+	old.DisplayOrder = o.DisplayOrder
+	if o.ImgUrl != "" {
+		old.ImgUrl = o.ImgUrl
+	}
+
+	if err = catalog.Update(old); err != nil {
+		this.Ctx.WriteString(err.Error())
+		return
+	}
+
+	this.Redirect("/", 302)
+
+}
+
+func (this *CatalogController) DoAdd() {
+	o, err := this.extractCatalog(true)
+	if err != nil {
+		this.Ctx.WriteString(err.Error())
+		return
+	}
+
 	_, err = catalog.Save(o)
 	if err != nil {
 		this.Ctx.WriteString(err.Error())
-		filetool.Unlink(imgPath)
 		return
 	}
 
@@ -78,14 +142,28 @@ func (this *CatalogController) DoAdd() {
 }
 
 func (this *CatalogController) ListByCatalog() {
-	cata := this.Ctx.Input.Param(":all")
+	cata := this.Ctx.Input.Param(":ident")
 	if cata == "" {
 		this.Ctx.WriteString("catalog ident is blank")
 		return
 	}
 
-	page := this.GetIntWithDefault("page", 1)
 	limit := this.GetIntWithDefault("limit", 10)
 
-	this.Ctx.WriteString(fmt.Sprintf("catalog:%s, page:%d, limit:%d", cata, page, limit))
+	c := catalog.OneByIdent(cata)
+	if c == nil {
+		this.Ctx.WriteString("catalog:" + cata + " not found")
+		return
+	}
+
+	ids := blog.Ids(c.Id)
+	pager := this.SetPaginator(limit, int64(len(ids)))
+	blogs := blog.ByCatalog(c.Id, pager.Offset(), limit)
+
+	this.Data["Catalog"] = c
+	this.Data["Blogs"] = blogs
+	this.Data["PageTitle"] = c.Name
+
+	this.Layout = "layout/default.html"
+	this.TplNames = "article/by_catalog.html"
 }

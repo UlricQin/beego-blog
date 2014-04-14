@@ -2,8 +2,8 @@ package controllers
 
 import (
 	"github.com/astaxie/beego"
-	"github.com/ulricqin/goutils/paginator"
 	"github.com/ulricqin/beego-blog/g"
+	"github.com/ulricqin/goutils/paginator"
 	"strconv"
 )
 
@@ -13,7 +13,7 @@ type Checker interface {
 
 type BaseController struct {
 	beego.Controller
-	IsAdmin     bool
+	IsAdmin bool
 }
 
 func (this *BaseController) Prepare() {
@@ -23,9 +23,26 @@ func (this *BaseController) Prepare() {
 	this.Data["RootName"] = g.RootName
 	this.Data["RootEmail"] = g.RootEmail
 	this.Data["RootPortrait"] = g.RootPortrait
+	this.AssignIsAdmin()
 	if app, ok := this.AppController.(Checker); ok {
 		app.CheckLogin()
 	}
+}
+
+func (this *BaseController) AssignIsAdmin() {
+	bb_name := this.Ctx.GetCookie("bb_name")
+	bb_password := this.Ctx.GetCookie("bb_password")
+	if bb_name == "" || bb_password == "" {
+		this.IsAdmin = false
+		return
+	}
+
+	if bb_name != g.RootName || bb_password != g.RootPass {
+		this.IsAdmin = false
+	}
+
+	this.IsAdmin = true
+	this.Data["IsAdmin"] = this.IsAdmin
 }
 
 func (this *BaseController) SetPaginator(per int, nums int64) *paginator.Paginator {

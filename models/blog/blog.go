@@ -147,18 +147,13 @@ func Ids(catalog_id int64) []int64 {
 	return val.([]int64)
 }
 
-func ByCatalog(catalog_id int64, page, limit int) []*Blog {
+func ByCatalog(catalog_id int64, offset, limit int) []*Blog {
 	ids := Ids(catalog_id)
 	size := len(ids)
 	if size == 0 {
 		return []*Blog{}
 	}
 
-	if page <= 0 {
-		page = 1
-	}
-
-	offset := (page - 1) * limit
 	if size > limit {
 		ids = ids[offset:(offset + limit)]
 	}
@@ -167,6 +162,7 @@ func ByCatalog(catalog_id int64, page, limit int) []*Blog {
 	ret := make([]*Blog, size)
 	for i := 0; i < size; i++ {
 		ret[i] = OneById(ids[i])
+		ret[i].Content = ReadBlogContent(ret[i])
 	}
 	return ret
 }
@@ -200,7 +196,7 @@ func Update(b *Blog, content string) error {
 	}
 
 	bc := ReadBlogContent(b)
-	if bc.Content != content {
+	if content != "" && bc.Content != content {
 		bc.Content = content
 		_, e := orm.NewOrm().Update(bc)
 		if e != nil {

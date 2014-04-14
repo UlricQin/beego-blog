@@ -1,20 +1,23 @@
-<link rel="stylesheet" type="text/css" href="/static/css/ee22d.css">
 <style type="text/css">
+#header{padding-right:8px;}
 </style>
+
 <div id="collections">
     <div class="section container">
         {{range .Catalogs}}
         <div class="collection-card" itemscope="" itemtype="http://schema.org/CollectionPage">
-            <a href="/catalog/{{.Ident}}" itemprop="url">
-                <img class="cover" src="{{.ImgUrl}}" alt="{{.Name}}"
-                     itemprop="image">
+            <a href="/catalog/{{.Ident}}"><img class="cover" src="{{.ImgUrl}}" alt="{{.Name}}"></a>
+            <div class="card-info">
+                <a href="/catalog/{{.Ident}}"><h3 class="collection-name">{{.Name}}</h3></a>
 
-                <div class="card-info">
-                    <h3 class="collection-name">{{.Name}}</h3>
-
-                    <p class="description">{{.Resume}}</p>
-                </div>
-            </a>
+                <p class="description">
+                    {{.Resume}}
+                    {{if $.IsAdmin}}
+                    <a href="/me/catalog/edit?id={{.Id}}">(Edit)</a>
+                    {{end}}
+                </p>
+            </div>
+            
         </div>
         {{end}}
     </div>

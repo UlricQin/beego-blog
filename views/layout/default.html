@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>{{.PageTitle}} - {{.BlogTitle}}</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/ee22d.css">
     <link rel="stylesheet" href="/static/css/g.css"/>
     <style>
         #screen{margin:0 auto; width:630px; }
@@ -9,7 +10,7 @@
 </head>
 <body>
     <div id="screen">
-        <header id="header" class="mt20" style="padding-right:8px;">
+        <header id="header" class="mt20">
             <div class="fr">
                 <div id="contact-me" style="margin-top: 42px!important;">
                     <div class="social">
@@ -24,13 +25,26 @@
                 <a href="/" ><img src="{{.BlogLogo}}" class="img-circle" width="90" height="90"></a>
             </div>
             <div class="fl">
-                <div id="blog-title">{{.BlogTitle}}</div>
+                <div id="blog-title"><a href="/">{{.BlogTitle}}</a></div>
                 <div id="blog-resume">{{.BlogResume}}</div>
             </div>
             <div style="clear:both;"></div>
             <hr>
         </header>
         {{.LayoutContent}}
+
+
+<div class="clear"></div>
+<footer>
+    <div class="site-source">
+        <a href="/">Beego-Blog</a> is open source on <a href="https://github.com/UlricQin/beego-blog" target="_blank">GitHub</a>.<br />
+        Patches, suggestions, and comments are welcome.
+    </div>
+    <div class="sfc-member">
+        Powered by <a href="https://twitter.com/UlricQin" target="_blank">UlricQin</a>
+    </div>
+</footer>
+
     </div>
 </body>
 </html>
