@@ -54,12 +54,19 @@ func (this *CatalogController) DoAdd() {
 		return
 	}
 
+	imgUrl := "/" + imgPath
 	if g.UseQiniu {
 		// 上传到七牛，并且返回一个url
+		if addr, er := g.UploadFile(imgPath, imgPath); er != nil {
+			this.Ctx.WriteString("upload to qiniu fail. error: " + err.Error())
+			return
+		} else {
+			imgUrl = addr
+		}
 	}
 
 	// 保存分类信息到DB
-	o := &models.Catalog{Ident: ident, Name: name, Resume: resume, DisplayOrder: display_order, ImgUrl: "/" + imgPath}
+	o := &models.Catalog{Ident: ident, Name: name, Resume: resume, DisplayOrder: display_order, ImgUrl: imgUrl}
 	_, err = catalog.Save(o)
 	if err != nil {
 		this.Ctx.WriteString(err.Error())
@@ -68,4 +75,17 @@ func (this *CatalogController) DoAdd() {
 	}
 
 	this.Redirect("/", 302)
+}
+
+func (this *CatalogController) ListByCatalog() {
+	cata := this.Ctx.Input.Param(":all")
+	if cata == "" {
+		this.Ctx.WriteString("catalog ident is blank")
+		return
+	}
+
+	page := this.GetIntWithDefault("page", 1)
+	limit := this.GetIntWithDefault("limit", 10)
+
+	this.Ctx.WriteString(fmt.Sprintf("catalog:%s, page:%d, limit:%d", cata, page, limit))
 }

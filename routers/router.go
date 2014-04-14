@@ -11,6 +11,7 @@ func init() {
 	beego.AutoRouter(&controllers.ApiController{})
 
 	beego.Router("/article/:id:int", &controllers.ArticleController{}, "get:Read")
+	beego.Router("/catalog/:all", &controllers.CatalogController{}, "get:ListByCatalog")
 
 	beego.Router("/login", &controllers.LoginController{}, "get:Login;post:DoLogin")
 	beego.Router("/logout", &controllers.LoginController{}, "get:Logout")

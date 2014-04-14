@@ -1,16 +1,21 @@
 package g
 
+import (
+	"github.com/qiniu/api/conf"
+)
+
 var (
-	RootEmail    string
-	RootName     string
-	RootPass     string
-	RootPortrait string
-	BlogTitle string
-	BlogResume string
-	BlogLogo string
+	RootEmail      string
+	RootName       string
+	RootPass       string
+	RootPortrait   string
+	BlogTitle      string
+	BlogResume     string
+	BlogLogo       string
 	QiniuAccessKey string
 	QiniuSecretKey string
-	UseQiniu bool
+	QiniuScope     string
+	UseQiniu       bool
 )
 
 func initCfg() {
@@ -23,5 +28,8 @@ func initCfg() {
 	BlogLogo = Cfg.String("blog_logo")
 	QiniuAccessKey = Cfg.String("qiniu_access_key")
 	QiniuSecretKey = Cfg.String("qiniu_secret_key")
-	UseQiniu = QiniuAccessKey != "" && QiniuSecretKey != ""
+	QiniuScope = Cfg.String("qiniu_scope")
+	UseQiniu = QiniuAccessKey != "" && QiniuSecretKey != "" && QiniuScope != ""
+	conf.ACCESS_KEY = QiniuAccessKey
+	conf.SECRET_KEY = QiniuSecretKey
 }

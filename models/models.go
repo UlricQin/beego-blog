@@ -67,6 +67,6 @@ func init() {
 }
 
 // func main() {
-// 	orm.RegisterDataBase("default", "mysql", "root:root@/beego_blog?charset=utf8&loc=Asia%2FShanghai", 30, 200)
+// 	orm.RegisterDataBase("default", "mysql", "root:1234@/beego_blog?charset=utf8&loc=Asia%2FShanghai", 30, 200)
 // 	orm.RunCommand()
 // }

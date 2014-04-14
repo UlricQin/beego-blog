@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"github.com/ulricqin/beego-blog/models"
+	"github.com/ulricqin/beego-blog/models/blog"
 	"github.com/ulricqin/beego-blog/models/catalog"
 )
 
@@ -12,6 +13,7 @@ type ArticleController struct {
 func (this *ArticleController) Read() {
 	id, _ := this.GetInt(":id")
 	this.Data["id"] = id
+	// views + 1
 	this.TplNames = "article/read.html"
 }
 
@@ -36,10 +38,20 @@ func (this *ArticleController) DoAdd() {
 		return
 	}
 
-	// blog content save first
-	// blog := &models.Blog{Ident:ident, Title:title, Keywords:keywords, CatalogId:catalog_id, }
+	cp := catalog.OneById(int64(catalog_id))
+	if cp == nil {
+		this.Ctx.WriteString("catalog_id not exists")
+		return
+	}
 
-	// add success
-	// clear cache catalog/$id/article_ids
-	// redirect to /catalog/xxxx
+	b := &models.Blog{Ident: ident, Title: title, Keywords: keywords, CatalogId: int64(catalog_id), Type: int8(aType), Status: int8(status)}
+	_, err := blog.Save(b, content)
+
+	if err != nil {
+		this.Ctx.WriteString(err.Error())
+		return
+	}
+
+	this.Redirect("/catalog/"+cp.Ident, 302)
+
 }

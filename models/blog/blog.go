@@ -1,14 +1,15 @@
-package catalog
+package blog
 
 import (
 	"fmt"
 	"github.com/astaxie/beego/orm"
 	"github.com/ulricqin/beego-blog/g"
 	. "github.com/ulricqin/beego-blog/models"
+	"time"
 )
 
 func OneById(id int64) *Blog {
-	if id == 0 {
+	if id <= 0 {
 		return nil
 	}
 
@@ -18,16 +19,15 @@ func OneById(id int64) *Blog {
 		if p := OneByIdInDB(id); p != nil {
 			g.BlogCachePut(key, *p)
 			return p
-		} else {
-			return nil
 		}
+		return nil
 	}
 	ret := val.(Blog)
 	return &ret
 }
 
 func OneByIdInDB(id int64) *Blog {
-	if id == 0 {
+	if id <= 0 {
 		return nil
 	}
 
@@ -82,8 +82,12 @@ func OneByIdentInDB(ident string) *Blog {
 }
 
 func IdsInDB(catalog_id int64) []int64 {
+	if catalog_id <= 0 {
+		return []int64{}
+	}
+
 	var blogs []Blog
-	Blogs().Filter("CatalogId", catalog_id).OrderBy("-Created").All(&blogs, "Id")
+	Blogs().Filter("CatalogId", catalog_id).Filter("Status", 1).OrderBy("-Created").All(&blogs, "Id")
 	size := len(blogs)
 	if size == 0 {
 		return []int64{}
@@ -97,7 +101,38 @@ func IdsInDB(catalog_id int64) []int64 {
 	return ret
 }
 
+func ReadBlogContent(b *Blog) *BlogContent {
+	if b.Id <= 0 || b.BlogContentId <= 0 {
+		return nil
+	}
+
+	key := fmt.Sprintf("content_of_%d_%d", b.Id, b.BlogContentLastUpdate)
+	val := g.BlogCacheGet(key)
+	if val == nil {
+		if p := readBlogContentInDB(b); p != nil {
+			g.BlogCachePut(key, *p)
+			return p
+		}
+		return nil
+	}
+	ret := val.(BlogContent)
+	return &ret
+}
+
+func readBlogContentInDB(b *Blog) *BlogContent {
+	o := BlogContent{Id: b.BlogContentId}
+	err := orm.NewOrm().Read(&o, "Id")
+	if err != nil {
+		return nil
+	}
+	return &o
+}
+
 func Ids(catalog_id int64) []int64 {
+	if catalog_id <= 0 {
+		return []int64{}
+	}
+
 	key := fmt.Sprintf("article_ids_of_%d", catalog_id)
 	val := g.BlogCacheGet(key)
 	if val == nil {
@@ -112,14 +147,23 @@ func Ids(catalog_id int64) []int64 {
 	return val.([]int64)
 }
 
-//TODO: page and size
-func All(catalog_id int64) []*Blog {
+func ByCatalog(catalog_id int64, page, limit int) []*Blog {
 	ids := Ids(catalog_id)
 	size := len(ids)
 	if size == 0 {
 		return []*Blog{}
 	}
 
+	if page <= 0 {
+		page = 1
+	}
+
+	offset := (page - 1) * limit
+	if size > limit {
+		ids = ids[offset:(offset + limit)]
+	}
+
+	size = len(ids)
 	ret := make([]*Blog, size)
 	for i := 0; i < size; i++ {
 		ret[i] = OneById(ids[i])
@@ -127,25 +171,47 @@ func All(catalog_id int64) []*Blog {
 	return ret
 }
 
-func Save(this *Blog) (int64, error) {
+func Save(this *Blog, blogContent string) (int64, error) {
 	if IdentExists(this.Ident) {
 		return 0, fmt.Errorf("blog english identity exists")
 	}
-	num, err := orm.NewOrm().Insert(this)
+
+	bc := &BlogContent{Content: blogContent}
+	or := orm.NewOrm()
+	blogContentId, e := or.Insert(bc)
+	if e != nil {
+		return 0, e
+	}
+
+	this.BlogContentId = blogContentId
+	this.BlogContentLastUpdate = time.Now().Unix()
+
+	id, err := or.Insert(this)
 	if err == nil {
 		g.BlogCacheDel(fmt.Sprintf("article_ids_of_%d", this.CatalogId))
 	}
 
-	return num, err
+	return id, err
 }
 
-func Update(this *Blog) error {
-	if this.Id == 0 {
-		return fmt.Errorf("primary key id not set")
+func Update(b *Blog, content string) error {
+	if b.Id == 0 {
+		return fmt.Errorf("primary key:id not set")
 	}
-	_, err := orm.NewOrm().Update(this)
+
+	bc := ReadBlogContent(b)
+	if bc.Content != content {
+		bc.Content = content
+		_, e := orm.NewOrm().Update(bc)
+		if e != nil {
+			return e
+		}
+		b.BlogContentLastUpdate = time.Now().Unix()
+	}
+
+	_, err := orm.NewOrm().Update(b)
 	if err == nil {
-		g.BlogCacheDel(fmt.Sprintf("%d", this.Id))
+		g.BlogCacheDel(fmt.Sprintf("%d", b.Id))
 	}
 	return err
 }
