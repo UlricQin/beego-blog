@@ -66,6 +66,7 @@ func (this *CatalogController) extractCatalog(imgMust bool) (*models.Catalog, er
 		ext := filetool.Ext(header.Filename)
 		imgPath := fmt.Sprintf("%s/%s_%d%s", CATALOG_IMG_DIR, o.Ident, time.Now().Unix(), ext)
 
+		filetool.InsureDir(CATALOG_IMG_DIR)
 		err = this.SaveToFile("img", imgPath)
 		if err != nil && imgMust {
 			return nil, err
@@ -80,6 +81,7 @@ func (this *CatalogController) extractCatalog(imgMust bool) (*models.Catalog, er
 					}
 				} else {
 					o.ImgUrl = addr
+					filetool.Unlink(imgPath)
 				}
 			}
 		}
