@@ -1,0 +1,4 @@
+#! /usr/bin/env bash
+
+sed -i -e "s/8999/$VCAP_APP_PORT/g" conf/app.conf
+./beego-blog
