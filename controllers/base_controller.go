@@ -71,5 +71,5 @@ func (this *BaseController) JsStorage(action, key string, values ...string) {
 	if len(values) > 0 {
 		value += ":::" + values[0]
 	}
-	this.Ctx.SetCookie("JsStorage", value, 1<<31-1, "/", nil, nil, false)
+	this.Ctx.SetCookie("JsStorage", value, 1<<31-1, "/")
 }
