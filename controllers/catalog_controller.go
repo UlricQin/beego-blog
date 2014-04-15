@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"github.com/ulricqin/beego-blog/g"
 	"github.com/ulricqin/beego-blog/models"
-	"github.com/ulricqin/beego-blog/models/blog"
 	"github.com/ulricqin/beego-blog/models/catalog"
 	"github.com/ulricqin/goutils/filetool"
 	"time"
@@ -141,31 +140,4 @@ func (this *CatalogController) DoAdd() {
 	}
 
 	this.Redirect("/", 302)
-}
-
-func (this *CatalogController) ListByCatalog() {
-	cata := this.Ctx.Input.Param(":ident")
-	if cata == "" {
-		this.Ctx.WriteString("catalog ident is blank")
-		return
-	}
-
-	limit := this.GetIntWithDefault("limit", 10)
-
-	c := catalog.OneByIdent(cata)
-	if c == nil {
-		this.Ctx.WriteString("catalog:" + cata + " not found")
-		return
-	}
-
-	ids := blog.Ids(c.Id)
-	pager := this.SetPaginator(limit, int64(len(ids)))
-	blogs := blog.ByCatalog(c.Id, pager.Offset(), limit)
-
-	this.Data["Catalog"] = c
-	this.Data["Blogs"] = blogs
-	this.Data["PageTitle"] = c.Name
-
-	this.Layout = "layout/default.html"
-	this.TplNames = "article/by_catalog.html"
 }
