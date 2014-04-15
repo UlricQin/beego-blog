@@ -6,45 +6,46 @@
 <script src="/static/javascript/jstorage.min.js"></script>
 <script src="/static/javascript/app.min.js"></script>
 
-<form role="form" action="/me/article/add" method="post">
+<form role="form" action="/me/article/edit" method="post">
+    <input type="hidden" name="id" value="{{.Blog.Id}}">
     <div class="row form-group">
         <div class="col-xs-6">
-            <input type="text" class="form-control" placeholder="Enter Title" name="title">
+            <input type="text" class="form-control" placeholder="Enter Title" name="title" value="{{.Blog.Title}}">
         </div>
         <div class="col-xs-3">
-            <input type="text" class="form-control" placeholder="Enter Identity" name="ident">
+            <input type="text" class="form-control" placeholder="Enter Identity" name="ident" value="{{.Blog.Ident}}">
         </div>
         <div class="col-xs-3">
-            <input type="text" class="form-control" placeholder="Enter Keywords" name="keywords">
+            <input type="text" class="form-control" placeholder="Enter Keywords" name="keywords" value="{{.Blog.Keywords}}">
         </div>
     </div>
     <div class="row form-group">
         <div class="col-xs-4">
             <select class="form-control" name="catalog_id">
                 {{range .Catalogs}}
-                <option value="{{.Id}}">{{.Name}}</option>
+                <option {{if eq .Id $.Blog.CatalogId}}selected{{end}} value="{{.Id}}">{{.Name}}</option>
                 {{end}}
             </select>
 
         </div>
         <div class="col-xs-2">
             <select class="form-control" name="type">
-                <option value="0">原创</option>
-                <option value="1">翻译</option>
-                <option value="2">转载</option>
+                <option {{if eq .Blog.Type 0}}selected{{end}} value="0">原创</option>
+                <option {{if eq .Blog.Type 1}}selected{{end}} value="1">翻译</option>
+                <option {{if eq .Blog.Type 2}}selected{{end}} value="2">转载</option>
             </select>
 
         </div>
         <div class="col-xs-2">
             <select class="form-control" name="status">
-                <option value="1">立即发布</option>
-                <option value="0">保存草稿</option>
+                <option {{if eq .Blog.Status 1}}selected{{end}} value="1">立即发布</option>
+                <option {{if eq .Blog.Status 0}}selected{{end}} value="0">保存草稿</option>
             </select>
         </div>
     </div>
 
 
-    <div class="markdown-editor"  data-preview-url="/api/markdown" data-savekey="post/new">
+    <div class="markdown-editor"  data-preview-url="/api/markdown" data-savekey="post/edit">
 
         <div class="form-group">
             <div class="btn-toolbar md-toolbar" role="toolbar">
@@ -61,7 +62,7 @@
                 </div>
             </div>
             <div class="md-textarea">
-                <textarea id="PostForm-Content" name="content" rows="5" class="form-control"></textarea>
+                <textarea id="PostForm-Content" name="content" rows="5" class="form-control">{{.Content}}</textarea>
             </div>
         </div>
         <div class="md-preview markdown" style="display:none;">

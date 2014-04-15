@@ -190,6 +190,20 @@ func Save(this *Blog, blogContent string) (int64, error) {
 	return id, err
 }
 
+func Del(b *Blog) error {
+	num, err := Blogs().Filter("Id", b.Id).Delete()
+	if err != nil {
+		return err
+	}
+
+	if num > 0 {
+		g.BlogCacheDel(fmt.Sprintf("article_ids_of_%d", b.CatalogId))
+		BlogContents().Filter("Id", b.BlogContentId).Delete()
+	}
+
+	return nil
+}
+
 func Update(b *Blog, content string) error {
 	if b.Id == 0 {
 		return fmt.Errorf("primary key:id not set")
@@ -214,4 +228,8 @@ func Update(b *Blog, content string) error {
 
 func Blogs() orm.QuerySeter {
 	return orm.NewOrm().QueryTable(new(Blog))
+}
+
+func BlogContents() orm.QuerySeter {
+	return orm.NewOrm().QueryTable(new(BlogContent))
 }

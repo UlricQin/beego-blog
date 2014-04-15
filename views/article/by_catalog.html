@@ -8,6 +8,11 @@
 
     <div class="entry-meta">
       <span>发表于：{{dateformat .Created "2006-01-02 15:04:05"}}</span>
+      {{if $.IsAdmin}}
+      (<a href="/me/article/edit?id={{.Id}}">Edit</a>
+      <span class="cut-line">|</span>
+      <a href="/me/article/del?id={{.Id}}">Del</a>)
+      {{end}}
     </div>
     <a class="entry-snippet" itemprop="description" href="/article/{{.Ident}}">
       {{substr .Content.Content 0 300}}...

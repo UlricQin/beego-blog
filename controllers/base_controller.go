@@ -65,3 +65,11 @@ func (this *BaseController) GetIntWithDefault(paramKey string, defaultVal int) i
 	}
 	return val
 }
+
+func (this *BaseController) JsStorage(action, key string, values ...string) {
+	value := action + ":::" + key
+	if len(values) > 0 {
+		value += ":::" + values[0]
+	}
+	this.Ctx.SetCookie("JsStorage", value, 1<<31-1, "/", nil, nil, false)
+}

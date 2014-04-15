@@ -66,3 +66,20 @@ func (this *ApiController) Upload() {
 	result["success"] = true
 
 }
+
+func (this *ApiController) Markdown() {
+	if this.IsAjax() {
+		result := map[string]interface{}{
+			"success": false,
+		}
+		action := this.GetString("action")
+		switch action {
+		case "preview":
+			content := this.GetString("content")
+			result["preview"] = g.RenderMarkdown(content)
+			result["success"] = true
+		}
+		this.Data["json"] = result
+		this.ServeJson()
+	}
+}
