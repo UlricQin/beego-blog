@@ -35,6 +35,7 @@ func (this *ArticleController) Add() {
 	this.Data["IsPost"] = true
 	this.Layout = "layout/admin.html"
 	this.TplNames = "article/add.html"
+	this.JsStorage("deleteKey", "post/new")
 }
 
 func (this *ArticleController) DoAdd() {
