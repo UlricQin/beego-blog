@@ -30,6 +30,14 @@ func (this *ArticleController) Read() {
 	this.TplNames = "article/read.html"
 }
 
+func (this *ArticleController) Draft() {
+	var blogs []*models.Blog
+	blog.Blogs().Filter("Status", 0).All(&blogs)
+	this.Data["Blogs"] = blogs
+	this.Layout = "layout/admin.html"
+	this.TplNames = "article/draft.html"
+}
+
 func (this *ArticleController) Add() {
 	this.Data["Catalogs"] = catalog.All()
 	this.Data["IsPost"] = true

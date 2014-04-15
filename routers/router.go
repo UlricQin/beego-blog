@@ -22,4 +22,5 @@ func init() {
 	beego.Router("/me/article/add", &controllers.ArticleController{}, "get:Add;post:DoAdd")
 	beego.Router("/me/article/edit", &controllers.ArticleController{}, "get:Edit;post:DoEdit")
 	beego.Router("/me/article/del", &controllers.ArticleController{}, "get:Del")
+	beego.Router("/me/article/draft", &controllers.ArticleController{}, "get:Draft")
 }
