@@ -137,6 +137,18 @@ func Save(this *Catalog) (int64, error) {
 	return num, err
 }
 
+func Del(c *Catalog) error {
+	num, err := orm.NewOrm().Delete(c)
+	if err != nil {
+		return err
+	}
+
+	if num > 0 {
+		g.CatalogCacheDel("ids")
+	}
+	return nil
+}
+
 func Update(this *Catalog) error {
 	if this.Id == 0 {
 		return fmt.Errorf("primary key id not set")

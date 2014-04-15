@@ -41,6 +41,29 @@ func (this *CatalogController) Edit() {
 	this.TplNames = "catalog/edit.html"
 }
 
+func (this *CatalogController) Del() {
+	id, err := this.GetInt("id")
+	if err != nil {
+		this.Ctx.WriteString("param id should be digit")
+		return
+	}
+
+	c := catalog.OneById(id)
+	if c == nil {
+		this.Ctx.WriteString(fmt.Sprintf("no such catalog_id:%d", id))
+		return
+	}
+
+	err = catalog.Del(c)
+	if err != nil {
+		this.Ctx.WriteString(err.Error())
+		return
+	}
+
+	this.Ctx.WriteString("del success")
+	return
+}
+
 func (this *CatalogController) extractCatalog(imgMust bool) (*models.Catalog, error) {
 	o := &models.Catalog{}
 	o.Name = this.GetString("name")
