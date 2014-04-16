@@ -13,7 +13,9 @@
                 <p class="description">
                     {{.Resume}}
                     {{if $.IsAdmin}}
-                    <a href="/me/catalog/edit?id={{.Id}}">(Edit)</a>
+                    <div>
+                    (<a style="display:inline;" href="/me/catalog/edit?id={{.Id}}">Edit</a><span class="cut-line">|</span><a style="display:inline;" href="/me/catalog/del?id={{.Id}}">Del</a>)
+                    </div>
                     {{end}}
                 </p>
             </div>

@@ -13,3 +13,11 @@ go get github.com/ulricqin/beego-blog/...
 cd beego-blog && modify conf/app.conf
 bee run
 ```
+
+## admin 
+
+```
+url: /me
+username: UlricQin
+password: a
+```

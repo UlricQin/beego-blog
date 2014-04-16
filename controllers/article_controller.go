@@ -1,33 +1,13 @@
 package controllers
 
 import (
-	"github.com/ulricqin/beego-blog/g"
 	"github.com/ulricqin/beego-blog/models"
 	"github.com/ulricqin/beego-blog/models/blog"
 	"github.com/ulricqin/beego-blog/models/catalog"
 )
 
 type ArticleController struct {
-	BaseController
-}
-
-func (this *ArticleController) Read() {
-	ident := this.GetString(":ident")
-	b := blog.OneByIdent(ident)
-	if b == nil {
-		this.Ctx.WriteString("no such article")
-		return
-	}
-
-	b.Views = b.Views + 1
-	blog.Update(b, "")
-
-	this.Data["Blog"] = b
-	this.Data["Content"] = g.RenderMarkdown(blog.ReadBlogContent(b).Content)
-	this.Data["PageTitle"] = b.Title
-	this.Data["Catalog"] = catalog.OneById(b.CatalogId)
-	this.Layout = "layout/default.html"
-	this.TplNames = "article/read.html"
+	AdminController
 }
 
 func (this *ArticleController) Draft() {
