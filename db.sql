@@ -27,9 +27,3 @@ CREATE TABLE IF NOT EXISTS `bb_blog_content` (
    `id` bigint AUTO_INCREMENT NOT NULL PRIMARY KEY,
    `content` longtext NOT NULL
 ) ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-
-CREATE TABLE IF NOT EXISTS `bb_option` (
-   `id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY,
-   `name` varchar(255) NOT NULL,
-   `value` varchar(255) NOT NULL
-) ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;

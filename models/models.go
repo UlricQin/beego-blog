@@ -37,12 +37,6 @@ type BlogContent struct {
 	Content string `orm:"type(text)"`
 }
 
-type Option struct {
-	Id    int
-	Name  string
-	Value string
-}
-
 func (*Catalog) TableEngine() string {
 	return engine()
 }
@@ -55,16 +49,12 @@ func (*BlogContent) TableEngine() string {
 	return engine()
 }
 
-func (*Option) TableEngine() string {
-	return engine()
-}
-
 func engine() string {
 	return "INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci"
 }
 
 func init() {
-	orm.RegisterModelWithPrefix("bb_", new(Catalog), new(Blog), new(BlogContent), new(Option))
+	orm.RegisterModelWithPrefix("bb_", new(Catalog), new(Blog), new(BlogContent))
 }
 
 // func main() {
