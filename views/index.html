@@ -3,7 +3,7 @@
 </style>
 
 <div id="collections">
-    <div class="section container">
+    <div class="section container" style="padding:0;">
         {{range .Catalogs}}
         <div class="collection-card" itemscope="" itemtype="http://schema.org/CollectionPage">
             <a href="/catalog/{{.Ident}}"><img class="cover" src="{{.ImgUrl}}" alt="{{.Name}}"></a>
