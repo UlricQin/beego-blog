@@ -155,7 +155,7 @@ func ByCatalog(catalog_id int64, offset, limit int) []*Blog {
 	}
 
 	if size > limit {
-		end = offset + limit
+		end := offset + limit
 		if end > size {
 			end = size
 		}
