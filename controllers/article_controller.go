@@ -91,7 +91,7 @@ func (this *ArticleController) DoEdit() {
 		return
 	}
 
-	b := blog.OneById(id)
+	b := blog.OneById(int64(id))
 	if b == nil {
 		this.Ctx.WriteString("no such article")
 		return
@@ -146,7 +146,7 @@ func (this *ArticleController) Del() {
 		return
 	}
 
-	b := blog.OneById(id)
+	b := blog.OneById(int64(id))
 	if b == nil {
 		this.Ctx.WriteString("no such article")
 		return

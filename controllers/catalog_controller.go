@@ -30,7 +30,7 @@ func (this *CatalogController) Edit() {
 		return
 	}
 
-	c := catalog.OneById(id)
+	c := catalog.OneById(int64(id))
 	if c == nil {
 		this.Ctx.WriteString(fmt.Sprintf("no such catalog_id:%d", id))
 		return
@@ -48,7 +48,7 @@ func (this *CatalogController) Del() {
 		return
 	}
 
-	c := catalog.OneById(id)
+	c := catalog.OneById(int64(id))
 	if c == nil {
 		this.Ctx.WriteString(fmt.Sprintf("no such catalog_id:%d", id))
 		return
@@ -119,7 +119,7 @@ func (this *CatalogController) DoEdit() {
 		return
 	}
 
-	old := catalog.OneById(cid)
+	old := catalog.OneById(int64(cid))
 	if old == nil {
 		this.Ctx.WriteString(fmt.Sprintf("no such catalog_id: %d", cid))
 		return
