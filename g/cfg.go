@@ -1,7 +1,7 @@
 package g
 
 import (
-	"github.com/qiniu/api/conf"
+	"github.com/qiniu/api.v6/conf"
 )
 
 var (

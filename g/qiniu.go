@@ -1,8 +1,8 @@
 package g
 
 import (
-	"github.com/qiniu/api/io"
-	"github.com/qiniu/api/rs"
+	"github.com/qiniu/api.v6/io"
+	"github.com/qiniu/api.v6/rs"
 )
 
 func UploadFile(localFile string, destName string) (addr string, err error) {
