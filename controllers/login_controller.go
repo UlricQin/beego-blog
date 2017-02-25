@@ -9,7 +9,7 @@ type LoginController struct {
 }
 
 func (this *LoginController) Login() {
-	this.TplNames = "login/login.html"
+	this.TplName = "login/login.html"
 }
 
 func (this *LoginController) DoLogin() {

@@ -2,12 +2,14 @@ package g
 
 import (
 	"fmt"
+	"os"
+
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/cache"
 	"github.com/astaxie/beego/orm"
 	_ "github.com/go-sql-driver/mysql"
+
 	log "github.com/ulricqin/goutils/logtool"
-	"os"
 )
 
 var Cache cache.Cache
@@ -42,7 +44,7 @@ func InitEnv() {
 	maxOpenConn, _ := Cfg.Int("db_max_open_conn")
 	dbLink := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8", dbUser, dbPass, dbHost, dbPort, dbName) + "&loc=Asia%2FChongqing"
 
-	orm.RegisterDriver("mysql", orm.DR_MySQL)
+	orm.RegisterDriver("mysql", orm.DRMySQL)
 	orm.RegisterDataBase("default", "mysql", dbLink, maxIdleConn, maxOpenConn)
 
 	RunMode = Cfg.String("runmode")

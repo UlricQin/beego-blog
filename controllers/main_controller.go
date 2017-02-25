@@ -14,7 +14,7 @@ func (this *MainController) Get() {
 	this.Data["Catalogs"] = catalog.All()
 	this.Data["PageTitle"] = "首页"
 	this.Layout = "layout/default.html"
-	this.TplNames = "index.html"
+	this.TplName = "index.html"
 }
 
 func (this *MainController) Read() {
@@ -33,7 +33,7 @@ func (this *MainController) Read() {
 	this.Data["PageTitle"] = b.Title
 	this.Data["Catalog"] = catalog.OneById(b.CatalogId)
 	this.Layout = "layout/default.html"
-	this.TplNames = "article/read.html"
+	this.TplName = "article/read.html"
 }
 
 func (this *MainController) ListByCatalog() {
@@ -60,5 +60,5 @@ func (this *MainController) ListByCatalog() {
 	this.Data["PageTitle"] = c.Name
 
 	this.Layout = "layout/default.html"
-	this.TplNames = "article/by_catalog.html"
+	this.TplName = "article/by_catalog.html"
 }

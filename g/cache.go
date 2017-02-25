@@ -1,16 +1,18 @@
 package g
 
+import "time"
+
 const (
 	blogPrefix    = "b_"
 	catalogPrefix = "c_"
 )
 
 func BlogCachePut(key string, val interface{}) error {
-	return Cache.Put(blogPrefix+key, val, blogCacheExpire)
+	return Cache.Put(blogPrefix+key, val, time.Duration(blogCacheExpire)*time.Second)
 }
 
 func CatalogCachePut(key string, val interface{}) error {
-	return Cache.Put(catalogPrefix+key, val, catalogCacheExpire)
+	return Cache.Put(catalogPrefix+key, val, time.Duration(catalogCacheExpire)*time.Second)
 }
 
 func BlogCacheGet(key string) interface{} {

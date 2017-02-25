@@ -2,12 +2,13 @@ package controllers
 
 import (
 	"fmt"
+	"strings"
+	"time"
+
 	"github.com/ulricqin/beego-blog/g"
 	"github.com/ulricqin/beego-blog/models/catalog"
 	"github.com/ulricqin/goutils/filetool"
 	"github.com/ulricqin/goutils/strtool"
-	"strings"
-	"time"
 )
 
 const (
@@ -35,7 +36,7 @@ func (this *ApiController) Upload() {
 
 	defer func() {
 		this.Data["json"] = &result
-		this.ServeJson()
+		this.ServeJSON()
 	}()
 
 	_, header, err := this.GetFile("image")
@@ -80,6 +81,6 @@ func (this *ApiController) Markdown() {
 			result["success"] = true
 		}
 		this.Data["json"] = result
-		this.ServeJson()
+		this.ServeJSON()
 	}
 }

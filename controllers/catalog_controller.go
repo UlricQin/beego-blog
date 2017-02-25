@@ -20,7 +20,7 @@ type CatalogController struct {
 func (this *CatalogController) Add() {
 	this.Data["IsAddCatalog"] = true
 	this.Layout = "layout/admin.html"
-	this.TplNames = "catalog/add.html"
+	this.TplName = "catalog/add.html"
 }
 
 func (this *CatalogController) Edit() {
@@ -38,7 +38,7 @@ func (this *CatalogController) Edit() {
 
 	this.Data["Catalog"] = c
 	this.Layout = "layout/admin.html"
-	this.TplNames = "catalog/edit.html"
+	this.TplName = "catalog/edit.html"
 }
 
 func (this *CatalogController) Del() {

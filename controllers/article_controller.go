@@ -15,14 +15,14 @@ func (this *ArticleController) Draft() {
 	blog.Blogs().Filter("Status", 0).All(&blogs)
 	this.Data["Blogs"] = blogs
 	this.Layout = "layout/admin.html"
-	this.TplNames = "article/draft.html"
+	this.TplName = "article/draft.html"
 }
 
 func (this *ArticleController) Add() {
 	this.Data["Catalogs"] = catalog.All()
 	this.Data["IsPost"] = true
 	this.Layout = "layout/admin.html"
-	this.TplNames = "article/add.html"
+	this.TplName = "article/add.html"
 	this.JsStorage("deleteKey", "post/new")
 }
 
@@ -81,7 +81,7 @@ func (this *ArticleController) Edit() {
 	this.Data["Blog"] = b
 	this.Data["Catalogs"] = catalog.All()
 	this.Layout = "layout/admin.html"
-	this.TplNames = "article/edit.html"
+	this.TplName = "article/edit.html"
 }
 
 func (this *ArticleController) DoEdit() {

@@ -1,10 +1,12 @@
 package controllers
 
 import (
+	"strconv"
+
 	"github.com/astaxie/beego"
 	"github.com/ulricqin/beego-blog/g"
 	"github.com/ulricqin/goutils/paginator"
-	"strconv"
+
 )
 
 type Checker interface {
