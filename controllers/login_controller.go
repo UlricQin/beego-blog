@@ -41,7 +41,7 @@ func (this *LoginController) DoLogin() {
 }
 
 func (this *LoginController) Logout() {
-	this.Ctx.SetCookie("bb_name", g.RootName, 0, "/")
-	this.Ctx.ResponseWriter.Header().Add("Set-Cookie", "bb_password="+g.RootPass+"; Max-Age=0; Path=/; httponly")
+	this.Ctx.ResponseWriter.Header().Add("Set-Cookie", "bb_name=0; Max-Age=0; Path=/;")
+	this.Ctx.ResponseWriter.Header().Add("Set-Cookie", "bb_password=0; Max-Age=0; Path=/; httponly")
 	this.Ctx.WriteString("logout")
 }
